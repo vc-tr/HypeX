@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: hypex
+      POSTGRES_PASSWORD: hypex
+      POSTGRES_DB: hypex
+    ports:
+      - "5432:5432"
+    volumes:
+      - hypex_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hypex"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Optional: ClickHouse for analytics (commented out)
+  # clickhouse:
+  #   image: clickhouse/clickhouse-server:24
+  #   ports:
+  #     - "8123:8123"
+  #     - "9000:9000"
+  #   volumes:
+  #     - hypex_clickhouse:/var/lib/clickhouse
+
+volumes:
+  hypex_pgdata:
+  # hypex_clickhouse:

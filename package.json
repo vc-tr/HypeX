@@ -1,0 +1,21 @@
+{
+  "name": "hypex",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TradingView for comics hype - top 1,000 manga/manhwa/manhua/webtoons",
+  "scripts": {
+    "dev": "make dev",
+    "dev:api": "make dev-api",
+    "dev:web": "make dev-web",
+    "build": "make test",
+    "test": "make test",
+    "lint": "./scripts/lint.sh"
+  },
+  "workspaces": [
+    "packages/core",
+    "packages/sources/*"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,4 +1,4 @@
-.PHONY: dev test fmt db-up db-down worker sync-titles check-structure migrate ingest prices backfill
+.PHONY: dev test fmt db-up db-down worker sync-titles check-structure migrate ingest prices backfill save
 
 # Start Postgres
 db-up:
@@ -70,3 +70,12 @@ backfill:
 fmt:
 	@(command -v uv >/dev/null 2>&1 && uv run ruff format packages/core apps/api apps/worker) || true
 	cd apps/web && npm run lint 2>/dev/null || true
+
+# Auto-commit and push all changes (run at end of each work session)
+# Usage: make save MSG="what was done"
+save:
+	@git add -A
+	@git diff --cached --quiet && echo "Nothing to commit." || \
+	  (git commit -m "$${MSG:-"chore: auto-save work session [$(shell date '+%Y-%m-%d %H:%M')]"}" && \
+	   git push origin main && \
+	   echo "✓ Pushed to origin/main")

@@ -29,6 +29,8 @@ from pricing import compute_hype_index, compute_prices, rolling_zscore, smooth_h
 END_DATE = date(2026, 6, 11)   # hard-coded for reproducible reruns
 DAYS = 730                      # ~2 years of daily history
 TREND_REF = 67.0               # max trending in the universe (normalizer)
+IDIO_SIGMA = 0.020             # idiosyncratic daily-return noise: real prices are
+#                                mostly unpredictable; hype is a small drift on top
 
 HERE = Path(__file__).resolve().parents[1]          # analytics/
 UNIVERSE = HERE / "universe" / "candidates.csv"
@@ -93,6 +95,14 @@ def main() -> None:
         z_e = rolling_zscore(engagement)
         hs = smooth_hype(compute_hype_index(z_m, z_e))
         prices = compute_prices(hs)
+        # idiosyncratic random-walk overlay so returns are realistically noisy
+        irng = random.Random((hash(row["canonical_id"]) & 0xFFFFFFFF) ^ 0x5BD1E995)
+        acc = 0.0
+        adj = []
+        for p in prices:
+            acc += irng.gauss(0, IDIO_SIGMA) - 0.5 * IDIO_SIGMA ** 2  # de-meaned: return-neutral
+            adj.append(p * math.exp(acc))
+        prices = adj
         cid = row["canonical_id"]
         for k in range(len(dates)):
             m_rows.append((iso[k], cid, mentions[k], engagement[k], "synthetic"))

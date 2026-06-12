@@ -1,0 +1,13 @@
+# HypeX analytics track — Python dependencies (self-contained, no database needed)
+pandas
+numpy
+matplotlib
+seaborn
+plotly
+statsmodels
+scipy
+scikit-learn
+jupytext
+jupyter
+nbconvert
+pytrends

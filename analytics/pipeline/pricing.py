@@ -56,3 +56,18 @@ def compute_prices(hs_values: list[float], p0: float = 100.0, sensitivity: float
     for i in range(1, len(hs_values)):
         prices.append(prices[i - 1] * math.exp(sensitivity * hs_values[i]))
     return prices
+
+
+def price_real_series(weekly_values, window: int = 4, min_periods: int = 2, sensitivity: float = 0.015):
+    """Price a weekly real-interest series (Track 2).
+
+    Real Google Trends interest trends strongly, so it is priced at its native
+    WEEKLY cadence (window ~4 weeks ≈ the 28-day synthetic window) with a slightly
+    lower sensitivity, then the caller forward-fills prices to daily. Pricing the
+    daily forward-filled series instead compounds 7x/week and explodes.
+    Returns (hs_weekly, prices_weekly).
+    """
+    z = rolling_zscore(weekly_values, window=window, min_periods=min_periods)
+    hs = smooth_hype(z)
+    prices = compute_prices(hs, sensitivity=sensitivity)
+    return hs, prices

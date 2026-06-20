@@ -1,6 +1,5 @@
 """Unit tests for slugify and merge_aliases."""
 
-import pytest
 from hypex_core.utils import merge_aliases, slugify
 
 

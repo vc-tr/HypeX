@@ -3,7 +3,7 @@
 from datetime import date
 
 from hypex_core.types import AliasEntry, Title
-from hypex_reddit.aggregator import MetricRow, aggregate_posts
+from hypex_reddit.aggregator import aggregate_posts
 from hypex_reddit.fetcher import RedditPost
 
 

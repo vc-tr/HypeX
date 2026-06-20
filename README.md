@@ -1,5 +1,8 @@
 # HypeX — Comics Hype Market Analytics
 
+[![CI](https://github.com/vc-tr/HypeX/actions/workflows/ci.yml/badge.svg)](https://github.com/vc-tr/HypeX/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 **An end-to-end analytics project that treats "comic-book hype" as a financial market.**
 100 Korean manhwa/webtoon titles → a daily demand signal → a price index → returns, risk,
 factor backtesting, and a BI dashboard. Python · R · SQL-style modeling · PowerBI/Tableau.
@@ -87,3 +90,7 @@ Title metadata and real search interest are real (AniList, Google Trends). Price
 `Sweet Home`'s real signal is flagged as noisy (a large Netflix adaptation inflates search).
 This transparency is the point — the project demonstrates the analytics pipeline, not a
 claim to predict comic popularity.
+
+## License
+
+Released under the [MIT License](LICENSE).

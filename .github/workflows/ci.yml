@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Install Python
+        run: uv python install 3.11
+
+      - name: Sync dependencies
+        run: uv sync --all-packages --all-extras
+
+      - name: Check repo structure
+        run: bash scripts/check-structure.sh
+
+      - name: Lint
+        run: uv run ruff check packages/core apps/api apps/worker packages/sources/reddit
+
+      - name: Test
+        run: uv run pytest packages/core/tests packages/sources/reddit/tests apps/worker/tests apps/api/tests -q

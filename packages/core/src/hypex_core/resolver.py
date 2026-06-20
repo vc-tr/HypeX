@@ -1,7 +1,6 @@
 """Resolve text mentions to canonical titles."""
 
 import re
-from typing import Optional
 
 from rapidfuzz import fuzz
 

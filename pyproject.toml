@@ -17,3 +17,9 @@ hypex-core = { workspace = true }
 [tool.pytest.ini_options]
 pythonpath = [".", "packages/core/src", "packages/sources/reddit/src"]
 addopts = "--import-mode=importlib"
+filterwarnings = [
+    # Starlette 1.3.x warns that its TestClient will require httpx2; httpx2
+    # isn't available in the ecosystem yet, so silence this third-party
+    # deprecation to keep API test output clean. Revisit once httpx2 ships.
+    "ignore:Using .httpx. with .starlette.testclient. is deprecated",
+]

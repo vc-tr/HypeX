@@ -1,6 +1,5 @@
 """HypeX FastAPI application."""
 
-import os
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Query
@@ -17,7 +16,6 @@ from .db import (
     get_top_gainers,
     get_top_losers,
     get_trending,
-    list_titles,
     list_titles_sorted,
 )
 from .models import (
@@ -27,7 +25,6 @@ from .models import (
     ResolveRequest,
     ResolveResponse,
     SeriesDetailResponse,
-    SeriesResponse,
     TitleOut,
     TitlesListResponse,
     TrendingItemOut,

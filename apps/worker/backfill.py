@@ -10,7 +10,7 @@ For each day from (today - N) to today:
 from __future__ import annotations
 
 import argparse
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 
 from apps.worker.ingest import ingest_reddit
 from apps.worker.prices import run as run_prices
@@ -40,7 +40,7 @@ def backfill(days: int) -> None:
     except Exception as e:
         print(f"  ⚠ Price computation failed: {e}")
 
-    print(f"\n=== Backfill complete ===")
+    print("\n=== Backfill complete ===")
 
 
 def main() -> None:
